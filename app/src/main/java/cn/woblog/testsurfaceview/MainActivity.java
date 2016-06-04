@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private SurfaceHolder sfh;
     private SurfaceHolder holder;
     private RelativeLayout rl;
-    private GestureDetector.SimpleOnGestureListener simpleOnGestureListener;
-    private GestureDetector gestureDetector;
     private int lastX;
     private int lastY;
     private int screenWidth;
@@ -45,23 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         rl = (RelativeLayout) findViewById(R.id.rl);
 
 
-        simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
-
-
-            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-            @Override
-            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-
-
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) rl.getLayoutParams();
-
-                rl.setX(rl.getX() + distanceX);
-                rl.setY(rl.getY() + distanceY);
-                Log.d(TAG, "x,y" + distanceX + "," + distanceY + "," + layoutParams);
-                return super.onScroll(e1, e2, distanceX, distanceY);
-            }
-        };
-        gestureDetector = new GestureDetector(this, simpleOnGestureListener);
         rl.setOnTouchListener(this);
 
         sfh = sv.getHolder();
