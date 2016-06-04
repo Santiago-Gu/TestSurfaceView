@@ -28,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private RelativeLayout rl;
     private GestureDetector.SimpleOnGestureListener simpleOnGestureListener;
     private GestureDetector gestureDetector;
-    private int topMargin;
-    private int leftMargin;
-    private int topTitleHeight;
     private int lastX;
     private int lastY;
     private int screenWidth;
@@ -43,12 +40,12 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         DisplayMetrics dm = getResources().getDisplayMetrics();
         screenWidth = dm.widthPixels;
         screenHeight = dm.heightPixels - 50;
-getSupportActionBar().hide();
+        getSupportActionBar().hide();
         sv = (SurfaceView) findViewById(R.id.sv);
         rl = (RelativeLayout) findViewById(R.id.rl);
 
 
-        simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener(){
+        simpleOnGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
 
             @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -58,9 +55,9 @@ getSupportActionBar().hide();
 
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) rl.getLayoutParams();
 
-                rl.setX(rl.getX()+distanceX);
-                rl.setY(rl.getY()+distanceY);
-                Log.d(TAG,"x,y"+distanceX+","+distanceY+","+layoutParams);
+                rl.setX(rl.getX() + distanceX);
+                rl.setY(rl.getY() + distanceY);
+                Log.d(TAG, "x,y" + distanceX + "," + distanceY + "," + layoutParams);
                 return super.onScroll(e1, e2, distanceX, distanceY);
             }
         };
@@ -74,9 +71,9 @@ getSupportActionBar().hide();
             public void surfaceCreated(SurfaceHolder holder) {
                 Canvas c = sfh.lockCanvas(new Rect(0, 0, 600, 600));
                 //2.开画
-                Paint  p =new Paint();
+                Paint p = new Paint();
                 p.setColor(Color.RED);
-                Rect aa  =  new Rect(0,0,600,600);
+                Rect aa = new Rect(0, 0, 600, 600);
                 c.drawRect(aa, p);
                 //3. 解锁画布   更新提交屏幕显示内容
                 sfh.unlockCanvasAndPost(c);
@@ -111,9 +108,9 @@ getSupportActionBar().hide();
             public void surfaceCreated(SurfaceHolder holder) {
                 Canvas c = holder.lockCanvas(new Rect(0, 0, 400, 400));
                 //2.开画
-                Paint  p =new Paint();
+                Paint p = new Paint();
                 p.setColor(Color.BLUE);
-                Rect aa  =  new Rect(0,0,400,400);
+                Rect aa = new Rect(0, 0, 400, 400);
                 c.drawRect(aa, p);
                 //3. 解锁画布   更新提交屏幕显示内容
                 holder.unlockCanvasAndPost(c);
@@ -134,8 +131,8 @@ getSupportActionBar().hide();
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        int ea=event.getAction();
-        switch(ea){
+        int ea = event.getAction();
+        switch (ea) {
             case MotionEvent.ACTION_DOWN:
                 lastX = (int) event.getRawX();
                 lastY = (int) event.getRawY();
@@ -148,37 +145,37 @@ getSupportActionBar().hide();
              b  Bottom position, relative to parent
              * */
             case MotionEvent.ACTION_MOVE:
-                int dx =(int)event.getRawX() - lastX;
-                int dy =(int)event.getRawY() - lastY;
+                int dx = (int) event.getRawX() - lastX;
+                int dy = (int) event.getRawY() - lastY;
 
                 int left = v.getLeft() + dx;
                 int top = v.getTop() + dy;
                 int right = v.getRight() + dx;
                 int bottom = v.getBottom() + dy;
 
-                if(left < 0){
+                if (left < 0) {
                     left = 0;
                     right = left + v.getWidth();
                 }
 
-                if(right > screenWidth){
+                if (right > screenWidth) {
                     right = screenWidth;
                     left = right - v.getWidth();
                 }
 
-                if(top < 0){
+                if (top < 0) {
                     top = 0;
                     bottom = top + v.getHeight();
                 }
 
-                if(bottom > screenHeight){
+                if (bottom > screenHeight) {
                     bottom = screenHeight;
                     top = bottom - v.getHeight();
                 }
 
                 v.layout(left, top, right, bottom);
 
-                Log.i("", "position：" + left +", " + top + ", " + right + ", " + bottom);
+                Log.i("", "position：" + left + ", " + top + ", " + right + ", " + bottom);
 
                 lastX = (int) event.getRawX();
                 lastY = (int) event.getRawY();
